@@ -89,7 +89,7 @@
         results.forEach((r, i) => {
           html += `<div class='mb-3 p-3 rounded-lg ${i===0?'bg-red-400 text-black':'bg-gray-700'}'><b>${i+1}. ${r.game}</b><br>𝙒𝙄𝙉𝙍𝘼𝙏𝙀: ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘)':''}</div>`;
         });
-        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 20x - Manual 10x</div>`;
+        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 30x - Manual 10x</div>`;
         resultDiv.innerHTML = html;
         loading.classList.add("hidden");
         winSound.play();
