@@ -74,7 +74,7 @@
       let results = [];
       for (let i = 0; i < 3; i++) {
         let index = (seed + i * 7) % games.length;
-        let winrate = 86-98 ((seed + i * 11) % 15);
+        let winrate = 86 ((seed + i * 11) % 15);
         results.push({ game: games[index], winrate });
       }
       results.sort((a, b) => b.winrate - a.winrate);
