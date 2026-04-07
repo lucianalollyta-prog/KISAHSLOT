@@ -9,6 +9,16 @@
     .slot-reel { font-weight: bold; font-size: 1.2rem; letter-spacing: 1px; display: inline-block; width: 100%; text-align: center; }
     .spin-animation { animation: spin 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
     @keyframes spin { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
+
+    /* Tombol deposit glowing */
+    #depositBtn {
+      display: none;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-black via-gray-900 to-black text-white flex items-center justify-center min-h-screen">
@@ -18,10 +28,9 @@
     <img src="https://i.postimg.cc/vTqrVBVB/Chat-GPT-Image-Mar-20-2026-03-10-35-PM.png" alt="KISAHSLOT Logo" class="mx-auto mb-4 w-40">
 
     <h1 class="text-2xl font-bold mb-2">🎰 𝗛𝗢𝗧 𝗥𝗘𝗘𝗟𝗦 𝗞𝗜𝗦𝗔𝗛𝗦𝗟𝗢𝗧 🎰</h1>
-    <p class="text-sm text-yellow-400 mb-4"> 𝐀𝐊𝐔𝐑𝐀𝐓 𝟗𝟓%✅        |     𝐊𝐀𝐋𝐀𝐇? 𝐂𝐀𝐒𝐇𝐁𝐀𝐂𝐊 𝟓𝟎%💸</p>
+    <p class="text-sm text-yellow-400 mb-4">𝐀𝐊𝐔𝐑𝐀𝐓 𝟗𝟓%✅ | 𝐊𝐀𝐋𝐀𝐇? 𝐂𝐀𝐒𝐇𝐁𝐀𝐂𝐊 𝟓𝟎%💸</p>
 
     <input id="userId" type="text" placeholder="Masukkan User ID" class="w-full p-3 rounded-lg text-black mb-4" />
-
     <button onclick="startGacha()" class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg w-full hover:scale-105 transition">CEK SEKARANG</button>
 
     <div id="loading" class="mt-4 hidden">
@@ -29,6 +38,13 @@
     </div>
 
     <div id="result" class="mt-6 hidden text-left"></div>
+
+    <!-- Tombol Deposit QRIS -->
+    <a id="depositBtn" href="https://slotkisah.org/Member/Deposit" target="_blank"
+       class="inline-block mt-4 bg-red-500 text-white font-bold px-4 py-2 rounded-lg hover:scale-105 transition">
+       Deposit via QRIS hanya 1 detik 🚀
+    </a>
+
     <audio id="winSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
   </div>
 
@@ -53,9 +69,11 @@
       const loading = document.getElementById("loading");
       const resultDiv = document.getElementById("result");
       const winSound = document.getElementById("winSound");
+      const depositBtn = document.getElementById("depositBtn");
 
       if (!userId) { alert("Masukkan User ID dulu bro!"); return; }
 
+      depositBtn.style.display = 'none'; // hide dulu
       resultDiv.classList.add("hidden");
       loading.classList.remove("hidden");
 
@@ -69,23 +87,24 @@
         const results = generateGacor(userId);
         let html = "<h2 class='text-xl font-bold mb-2'>🔥 HASIL GACOR 🔥</h2>";
         results.forEach((r, i) => {
-          html += `<div class='mb-3 p-3 rounded-lg ${i === 0 ? 'bg-yellow-400 text-black' : 'bg-gray-700'}'><b>${i + 1}. ${r.game}</b><br>Winrate: ${r.winrate}% ${i === 0 ? '(PALING GACOR 🔥)' : ''}</div>`;
+          html += `<div class='mb-3 p-3 rounded-lg ${i===0?'bg-yellow-400 text-black':'bg-gray-700'}'><b>${i+1}. ${r.game}</b><br>𝙒𝙄𝙉𝙍𝘼𝙏𝙀: ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘🔥)':''}</div>`;
         });
-        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam(userId)}<br>🎯 Pola: Auto 20x - Manual 10x</div>`;
+        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 20x - Manual 10x</div>`;
         resultDiv.innerHTML = html;
         loading.classList.add("hidden");
         winSound.play();
+
+        // Tampilkan tombol Deposit
+        depositBtn.style.display = 'inline-block';
       }, 1500);
     }
 
     function generateJam() {
-  const now = new Date();
-  let start = now.getHours() + Math.floor(Math.random() * 3); // 0–2 jam ke depan
-  start = start % 24;
-
-  let end = (start + 2) % 24;
-
-  return `${String(start).padStart(2,'0')}:00 - ${String(end).padStart(2,'0')}:30`
+      const now = new Date();
+      let start = now.getHours() + Math.floor(Math.random() * 3);
+      start = start % 24;
+      let end = (start + 2) % 24;
+      return `${String(start).padStart(2,'0')}:00 - ${String(end).padStart(2,'0')}:30`
     }
   </script>
 
