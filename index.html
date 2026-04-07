@@ -15,6 +15,14 @@
       display: none;
       animation: pulse 1.2s infinite;
     }
+
+    /* Tombol livechat */
+    #chatBtn {
+      display: none;
+      animation: pulse 1.2s infinite;
+      background-color: #22c55e;
+    }
+
     @keyframes pulse {
       0%,100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,0,0,0.5); }
       50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
@@ -24,14 +32,17 @@
 <body class="bg-gradient-to-br from-black via-gray-900 to-black text-white flex items-center justify-center min-h-screen">
 
   <div class="bg-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-md text-center">
-    <!-- LOGO KISAHSLOT -->
-    <img src="https://i.postimg.cc/vTqrVBVB/Chat-GPT-Image-Mar-20-2026-03-10-35-PM.png" alt="KISAHSLOT Logo" class="mx-auto mb-4 w-40">
+    
+    <!-- LOGO -->
+    <img src="https://i.postimg.cc/vTqrVBVB/Chat-GPT-Image-Mar-20-2026-03-10-35-PM.png" class="mx-auto mb-4 w-40">
 
     <h1 class="text-2xl font-bold mb-2">🎰 𝗚𝗔𝗠𝗘 𝗚𝗔𝗖𝗢𝗥 𝗞𝗜𝗦𝗔𝗛𝗦𝗟𝗢𝗧 🎰</h1>
     <p class="text-sm text-yellow-400 mb-4">𝐀𝐊𝐔𝐑𝐀𝐓 𝟗𝟓%✅ | 𝐊𝐀𝐋𝐀𝐇? 𝐂𝐀𝐒𝐇𝐁𝐀𝐂𝐊 𝟓𝟎%💸</p>
 
     <input id="userId" type="text" placeholder="Masukkan User ID" class="w-full p-3 rounded-lg text-black mb-4" />
-    <button onclick="startGacha()" class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg w-full hover:scale-105 transition">CEK SEKARANG</button>
+    <button onclick="startGacha()" class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg w-full hover:scale-105 transition">
+      CEK SEKARANG
+    </button>
 
     <div id="loading" class="mt-4 hidden">
       <p class="animate-pulse">🔄 Menganalisa ID...</p>
@@ -39,10 +50,16 @@
 
     <div id="result" class="mt-6 hidden text-left"></div>
 
-    <!-- Tombol Deposit QRIS -->
+    <!-- Deposit -->
     <a id="depositBtn" href="https://slotkisah.org/Member/Deposit" target="_blank"
        class="inline-block mt-4 bg-red-500 text-white font-bold px-4 py-2 rounded-lg hover:scale-105 transition">
        Deposit via QRIS hanya 1 detik 🚀
+    </a>
+
+    <!-- Live Chat -->
+    <a id="chatBtn" href="https://static.zdassets.com/web_widget/latest/liveChat.html?v=10#key=kisahslot777.zendesk.com&settings=JTdCJTIyd2ViV2lkZ2V0JTIyJTNBJTdCJTIyY2hhdCUyMiUzQSU3QiUyMnRpdGxlJTIyJTNBbnVsbCUyQyUyMm1lbnVPcHRpb25zJTIyJTNBJTdCJTIyZW1haWxUcmFuc2NyaXB0JTIyJTNBdHJ1ZSU3RCUyQyUyMmRlcGFydG1lbnRzJTIyJTNBJTdCJTdEJTJDJTIycHJlY2hhdEZvcm0lMjIlM0ElN0IlMjJkZXBhcnRtZW50TGFiZWwlMjIlM0FudWxsJTJDJTIyZ3JlZXRpbmclMjIlM0FudWxsJTdEJTJDJTIyb2ZmbGluZUZvcm0lMjIlM0ElN0IlMjJncmVldGluZyUyMiUzQW51bGwlN0QlMkMlMjJjb25jaWVyZ2UlMjIlM0ElN0IlMjJhdmF0YXJQYXRoJTIyJTNBbnVsbCUyQyUyMm5hbWUlMjIlM0FudWxsJTJDJTIydGl0bGUlMjIlM0FudWxsJTdEJTdEJTJDJTIyY29sb3IlMjIlM0ElN0IlMjJhcnRpY2xlTGlua3MlMjIlM0ElMjIlMjIlMkMlMjJidXR0b24lMjIlM0ElMjIlMjIlMkMlMjJoZWFkZXIlMjIlM0ElMjIlMjIlMkMlMjJsYXVuY2hlciUyMiUzQSUyMiUyMiUyQyUyMmxhdW5jaGVyVGV4dCUyMiUzQSUyMiUyMiUyQyUyMnJlc3VsdExpc3RzJTIyJTNBJTIyJTIyJTJDJTIydGhlbWUlMjIlM0FudWxsJTdEJTdEJTdE&&locale=en-us&title=Web%20Widget%20Live%20Chat" target="_blank"
+       class="inline-block mt-3 text-white font-bold px-4 py-2 rounded-lg hover:scale-105 transition">
+       💬 Live Chat Admin
     </a>
 
     <audio id="winSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
@@ -70,14 +87,16 @@
       const resultDiv = document.getElementById("result");
       const winSound = document.getElementById("winSound");
       const depositBtn = document.getElementById("depositBtn");
+      const chatBtn = document.getElementById("chatBtn");
 
       if (!userId) { alert("Masukkan User ID dulu bro!"); return; }
 
-      depositBtn.style.display = 'none'; // hide dulu
+      depositBtn.style.display = 'none';
+      chatBtn.style.display = 'none';
       resultDiv.classList.add("hidden");
       loading.classList.remove("hidden");
 
-      // Animasi spin reel
+      // Animasi spin
       let reelHtml = '';
       for (let i = 0; i < 3; i++) reelHtml += `<div class='slot-reel spin-animation'>🎰</div>`;
       resultDiv.innerHTML = reelHtml;
@@ -87,15 +106,20 @@
         const results = generateGacor(userId);
         let html = "<h2 class='text-xl font-bold mb-2'>🔥 HASIL GACOR 🔥</h2>";
         results.forEach((r, i) => {
-          html += `<div class='mb-3 p-3 rounded-lg ${i===0?'bg-red-400 text-black':'bg-gray-700'}'><b>${i+1}. ${r.game}</b><br>𝙒𝙄𝙉𝙍𝘼𝙏𝙀: ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘)':''}</div>`;
+          html += `<div class='mb-3 p-3 rounded-lg ${i===0?'bg-red-400 text-black':'bg-gray-700'}'>
+          <b>${i+1}. ${r.game}</b><br>
+          𝙒𝙄𝙉𝙍𝘼𝙏𝙀: ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘)':''}
+          </div>`;
         });
-        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 30x - Manual 10x</div>`;
+
+        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 20x - Manual 10x</div>`;
+
         resultDiv.innerHTML = html;
         loading.classList.add("hidden");
         winSound.play();
 
-        // Tampilkan tombol Deposit
         depositBtn.style.display = 'inline-block';
+        chatBtn.style.display = 'inline-block';
       }, 1500);
     }
 
@@ -107,7 +131,6 @@
       return `${String(start).padStart(2,'0')}:00 - ${String(end).padStart(2,'0')}:30`
     }
   </script>
-  
 
 </body>
 </html>
