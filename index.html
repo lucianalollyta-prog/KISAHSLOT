@@ -36,8 +36,8 @@
     <!-- LOGO -->
     <img src="https://i.postimg.cc/vTqrVBVB/Chat-GPT-Image-Mar-20-2026-03-10-35-PM.png" class="mx-auto mb-4 w-40">
 
-    <h1 class="text-2xl font-bold mb-2">🎰 𝗚𝗔𝗠𝗘 𝗚𝗔𝗖𝗢𝗥 𝗞𝗜𝗦𝗔𝗛𝗦𝗟𝗢𝗧 🎰</h1>
-    <p class="text-sm text-yellow-400 mb-4">𝐀𝐊𝐔𝐑𝐀𝐓 𝟗𝟗%✅ | 𝐊𝐀𝐋𝐀𝐇? 𝐂𝐀𝐒𝐇𝐁𝐀𝐂𝐊 𝟓𝟎%💸</p>
+    <h1 class="text-2xl font-bold mb-2">🎰 𝗛𝗢𝗧 𝗥𝗘𝗘𝗟𝗦 𝗞𝗜𝗦𝗔𝗛𝗦𝗟𝗢𝗧 🎰</h1>
+    <p class="text-sm text-yellow-400 mb-4">𝐀𝐊𝐔𝐑𝐀𝐓 𝟗𝟓%✅ | 𝐊𝐀𝐋𝐀𝐇? 𝐂𝐀𝐒𝐇𝐁𝐀𝐂𝐊 𝟓𝟎%💸</p>
 
     <input id="userId" type="text" placeholder="Masukkan User ID" class="w-full p-3 rounded-lg text-black mb-4" />
     <button onclick="startGacha()" class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg w-full hover:scale-105 transition">
@@ -74,12 +74,31 @@
       let results = [];
       for (let i = 0; i < 3; i++) {
         let index = (seed + i * 7) % games.length;
-        let winrate = 86 + ((seed + i * 10) % 13);
+        let winrate = 86 + ((seed + i * 11) % 13);
         results.push({ game: games[index], winrate });
       }
       results.sort((a, b) => b.winrate - a.winrate);
       return results;
     }
+    function generatePola(userId) {
+  const polaList = [
+    "Auto 10x - Manual 5x",
+    "Auto 20x - Manual 10x",
+    "Auto 30x - Manual 15x",
+    "Manual 10x - Turbo 20x",
+    "Auto 50x - Stop - Manual 10x",
+    "Turbo 25x - Auto 15x",
+    "Manual 10x - Auto 40x"
+  ];
+
+  let seed = 0;
+  for (let i = 0; i < userId.length; i++) {
+    seed += userId.charCodeAt(i);
+  }
+
+  let index = seed % polaList.length;
+  return polaList[index];
+}
 
     function startGacha() {
       const userId = document.getElementById("userId").value;
@@ -108,11 +127,11 @@
         results.forEach((r, i) => {
           html += `<div class='mb-3 p-3 rounded-lg ${i===0?'bg-red-400 text-black':'bg-gray-700'}'>
           <b>${i+1}. ${r.game}</b><br>
-          𝙒𝙄𝙉𝙍𝘼𝙏𝙀: ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘)':''}
+          𝐖𝐈𝐍𝐑𝐀𝐓𝐄 : ${r.winrate}% ${i===0?'(𝗧𝗢𝗣 𝗚𝗔𝗠𝗘)':''}
           </div>`;
         });
 
-        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: Auto 20x - Manual 10x</div>`;
+        html += `<div class='mt-4 text-sm'>⏰ Jam Hoki: ${generateJam()}<br>🎯 Pola: ${generatePola(userId)}</div>`;
 
         resultDiv.innerHTML = html;
         loading.classList.add("hidden");
